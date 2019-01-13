@@ -25,11 +25,33 @@
         }
         document.write(result);
 
+        document.write("<br><hr><br>");
         //Задание 2
         
+        var x = 0;
+        do { 
+            if (x==0) {
+                document.write(x+" – это ноль<br>")
+            } else if (x%2==0) {
+                document.write(x+" – четное число<br>")
+            } else {
+                document.write(x+" – нечетное число<br>")
+            }
+            x++;
+        } while (x<=10);
+
+        document.write("<br><hr><br>");
         //Задание 3
         
+        for(var q=0; q<10; document.write(q), q++);
+
+        document.write("<br><hr><br>");
         //Задание 4
+        
+        var str = "";
+        for(var s=1; s<21; s++) {
+            console.log(str+="x");
+        }
         
     </script>
 </head>
