@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        var number = {};
+
+        function getNumber(num) {
+            if (isNaN(num)) {
+                console.log("Введите число от 0 до 999");
+            } else if (num<0 || num >999) {
+                console.log("Число не входит в диапазон от 0 до 999");
+            } else {
+                number.sot = num/100 ^0;
+                number.des = num%100/10 ^0;
+                number.ed = num%10;
+            }
+            return number;
+        }
+        
+        for(var i in getNumber(+prompt("Введите число от 0 до 999", 0))) {
+            console.log(i+":"+number[i]);
+        }
+    
+    </script>
+</head>
+<body>
+
+</body>
+</html>
