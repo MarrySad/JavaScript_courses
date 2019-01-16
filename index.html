@@ -4,111 +4,55 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <script>
-        /*
         //Задание 1
-        var a = 1, b = 1, c, d;
-        c = ++a; alert(c); // 2 - префиксная запись инкремента, a=2
-        d = b++; alert(d); // 1 - постфиксная запись инкремента, b=2
-        c = (2+ ++a); alert(c); // 5 - префиксная запись инкремента, a=3
-        d = (2+ b++); alert(d); // 4 - постфиксная запись инкремента, b=3
-        alert(a); // 3
-        alert(b); // 3
-
-        //Задание 2
-        var a = 2;
-        var x = 1 + (a *= 2); // x=5 - операции в скобках имеют больший приоретет
-        */
         
+        var result = "";
+        var i = 0, j;
+        while (i<=100) {
+            j=2;
+            while(j<=i) {
+                if (i%j==0) {
+                    break;
+                }
+                else {
+                    j++;
+                }
+            }
+            if (i==j || i<2) {
+                result+=i+" ";
+            }
+            i++;
+        }
+        document.write(result);
+
+        document.write("<br><hr><br>");
+        //Задание 2
+        
+        var x = 0;
+        do { 
+            if (x==0) {
+                document.write(x+" – это ноль<br>")
+            } else if (x%2==0) {
+                document.write(x+" – четное число<br>")
+            } else {
+                document.write(x+" – нечетное число<br>")
+            }
+            x++;
+        } while (x<=10);
+
+        document.write("<br><hr><br>");
         //Задание 3
-        var a = +prompt("Введите a"), b = +prompt("Введите b");
-        if (a>=0 && b>=0) {
-            alert(a-b);
-        } else if(a<0 && b<0){
-            alert(a*b);
-        } else {
-            alert(a+b);
-        }
+        
+        for(var q=0; q<10; document.write(q), q++);
 
+        document.write("<br><hr><br>");
         //Задание 4
-        var c = +prompt("Введите c в промежутке [0..15]")
-        switch(c){
-            case 0: alert(0);
-            case 1: alert(1);
-            case 2: alert(2);
-            case 3: alert(3);
-            case 4: alert(4);
-            case 5: alert(5);
-            case 6: alert(6);
-            case 7: alert(7);
-            case 8: alert(8);
-            case 9: alert(9);
-            case 10: alert(10);
-            case 11: alert(11);
-            case 12: alert(12);
-            case 13: alert(13);
-            case 14: alert(14);
-            case 15: 
-                alert(15);
-                break;
-            default: alert("Введенное число не входит в промежуток [0..15]");
+        
+        var str = "";
+        for(var s=1; s<21; s++) {
+            console.log(str+="x");
         }
-
-        //Задание 5
-        function summ(arg1, arg2) {
-            return arg1+arg2;
-        }
-
-        function subt(arg1, arg2) {
-            return arg1-arg2;
-        }
-        function mult(arg1, arg2) {
-            return arg1*arg2;
-        }
-        function div(arg1, arg2) {
-            return arg1/arg2;
-        }
-
-        //Задание 6
-        function mathOperation(arg1, arg2, operation) {
-            switch (operation) {
-                case summ:
-                return summ(arg1, arg2);
-                break;
-                case subt:
-                return subt(arg1, arg2);
-                break;
-                case mult:
-                return mult(arg1, arg2);
-                break;
-                case div:
-                return div(arg1, arg2);
-                break;
-            }
-        }
-
-        //Задание 7
-        alert(null==0); 
-        /*
-        false. Тут я думаю что null - это отсутствие присутствия, а 0 - присутствие отсутствия)) 
-        но спецификация абстрактного алгоритма сравнения для равенств говорит что false возвращается как значение по умолчанию, 
-        так как операнды не подходять не к ондому из 21 предшествующего пункта алгоритма.
-        */
-
-        //Задание 8
-        function power(val, pow){
-            if (pow<0) {
-                val = 1/val;
-                pow = -pow;
-            }
-            result = 1*val;
-            if (pow>1) {
-                result *= power(val, pow-1); 
-            }
-            if (pow==0) {
-                return 1;
-            }
-            return result
-        }
+        
     </script>
 </head>
 <body>
