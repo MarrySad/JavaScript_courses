@@ -1,0 +1,8 @@
+.chess-field {
+    border: solid 1px black; 
+}
+
+.chess-field td {
+    border: solid 1px black; 
+    -webkit-transform: rotate(15deg);
+}
