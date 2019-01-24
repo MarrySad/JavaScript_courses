@@ -1,0 +1,41 @@
+body {
+    margin: 0 auto;
+}
+
+.wholeBoard {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    border: solid 1px black;
+    text-align: center;
+    font-size: 34px;
+}
+
+.range {
+    border: none;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.upper, .right {
+    transform: rotate(180deg);
+}
+
+.upper, .lower {
+    width: 50px;
+    height: 20px;
+}
+
+.right, .left {
+    width: 20px;
+    height: 50px;
+}
+
+.black {
+    background-color: gray;
+}
+
