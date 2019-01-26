@@ -37,6 +37,7 @@ for (let i = 0; i < products.length; i++) {
     productWrap.appendChild(btn);
     document.querySelector(".productList").appendChild(productWrap);
 }
+
 var tr = document.createElement("tr");
 var td = document.createElement("td");
 td.innerText = "Название товара";
