@@ -54,11 +54,11 @@ var td = document.createElement("td");
 td.innerText = "Всего: ";
 tr.appendChild(td);
 var td = document.createElement("td");
-td.innerText = 0+" ед.";
+td.innerText = 0 + " ед.";
 td.className = "allQt";
 tr.appendChild(td);
 var td = document.createElement("td");
-td.innerText = 0+" \u20bd";
+td.innerText = 0 + " \u20bd";
 td.className = "summ";
 tr.appendChild(td);
 document.querySelector(".cart").appendChild(tr);
@@ -99,6 +99,5 @@ function addToCart(id) {
     });
     document.querySelector(".allQt").textContent = allQt;
     document.querySelector(".summ").textContent = summ;
-    console.log(summ)
 }
 
