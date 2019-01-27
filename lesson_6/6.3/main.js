@@ -19,7 +19,7 @@ document.body.appendChild(btn_right);
 function prev_img() {
     i--;
     if (i < 0) {
-        i = 4;
+        i = arr.length-1;
     }
     document.querySelector("#this_img").src = "src/" + arr[i] + ".jpg";
 }
