@@ -7,7 +7,9 @@ var direction = 'y+'; // Направление движения змейки
 var gameIsRunning = false; // Запущена ли игра
 var snake_timer; // Таймер змейки
 var food_timer; // Таймер для еды
+var rock_timer; // Таймер для препятствий
 var score = 0; // Результат
+var lastRock; // последнее препядствие
 
 function init() {
     prepareGameField(); // Генерация поля
@@ -58,7 +60,7 @@ function prepareGameField() {
 
     document.getElementById('snake-field').appendChild(game_table); // Добавление таблицы
 
-    var scoreBox = document.createElement('span');
+    var scoreBox = document.createElement('span');  // Добавляем поле очков
     scoreBox.className = "score"
     scoreBox.innerText = ("score: "+score);
     document.querySelector(".wrap").appendChild(scoreBox);
@@ -74,6 +76,7 @@ function startGame() {
 
     snake_timer = setInterval(move, SNAKE_SPEED);//каждые 200мс запускаем функцию move
     setTimeout(createFood, 5000);
+    setInterval(createRock, 5000);
 }
 
 /**
@@ -130,7 +133,7 @@ function move() {
     // 1) new_unit не часть змейки
     // 2) Змейка не ушла за границу поля
     //console.log(new_unit);
-    if (!isSnakeUnit(new_unit) && new_unit !== undefined) {
+    if (!isSnakeUnit(new_unit) && new_unit !== undefined && !isRock(new_unit)) {
         // Добавление новой части змейки
         new_unit.setAttribute('class', new_unit.getAttribute('class') + ' snake-unit');
         snake.push(new_unit);
@@ -186,6 +189,23 @@ function haveFood(unit) {
 }
 
 /**
+ * проверка на препятствие
+ * @param unit
+ * @returns {boolean}
+ */
+function isRock(unit) {
+    var check = false;
+
+    var unit_classes = unit.getAttribute('class').split(' ');
+
+    // Если еда
+    if (unit_classes.includes('rock-unit')) {
+        check = true;
+    }
+    return check;
+}
+
+/**
  * Создание еды
  */
 function createFood() {
@@ -200,7 +220,7 @@ function createFood() {
         var food_cell_classes = food_cell.getAttribute('class').split(' ');
 
         // проверка на змейку
-        if (!food_cell_classes.includes('snake-unit')) {
+        if (!food_cell_classes.includes('snake-unit') || !food_cell_classes.includes('rock-unit')){
             var classes = '';
             for (var i = 0; i < food_cell_classes.length; i++) {
                 classes += food_cell_classes[i] + ' ';
@@ -209,6 +229,48 @@ function createFood() {
             food_cell.setAttribute('class', classes + 'food-unit');
             foodCreated = true;
         }
+    }
+}
+
+/**
+ * Создание препятствия
+ */
+
+function createRock() {
+    var rockCreated = false;
+    removeRock(lastRock);
+
+
+    while (!rockCreated) { //пока препятствие не создали
+        // рандом
+        var rock_x = Math.floor(Math.random() * FIELD_SIZE_X);
+        var rock_y = Math.floor(Math.random() * FIELD_SIZE_Y);
+
+        var rock_cell = document.getElementsByClassName('cell-' + rock_y + '-' + rock_x)[0];
+        lastRock = rock_cell;
+        var rock_cell_classes = rock_cell.getAttribute('class').split(' ');
+
+        // проверка на змейку или препятствие
+        if (!rock_cell_classes.includes('snake-unit') || !rock_cell_classes.includes('food-unit')) {
+            var classes = '';
+            for (var i = 0; i < rock_cell_classes.length; i++) {
+                classes += rock_cell_classes[i] + ' ';
+            }
+
+            rock_cell.setAttribute('class', classes + 'rock-unit');
+            rockCreated = true;
+        }
+    }
+}
+
+function removeRock(unit) {
+    if(lastRock !== undefined) {
+        var classes;
+        var unit_classes = unit.getAttribute('class').split(' ');
+        for (var i = 0; i < unit_classes.length-1; i++) {
+            classes += unit_classes[i] + ' ';
+        }
+        unit.setAttribute('class', classes);
     }
 }
 

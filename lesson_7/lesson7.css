@@ -39,3 +39,6 @@ td.game-table-cell{
     font-size: 40px;
     font-variant: small-caps;
 }
+.rock-unit {
+    background-color: saddlebrown;
+}
