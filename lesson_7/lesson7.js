@@ -16,7 +16,7 @@ function init() {
 
     var wrap = document.getElementsByClassName('wrap')[0];
     // Подгоняем размер контейнера под игровое поле
-    
+
 	/*
 	if (16 * (FIELD_SIZE_X + 1) < 380) {
         wrap.style.width = '380px';
@@ -30,7 +30,7 @@ function init() {
     document.getElementById('snake-start').addEventListener('click', startGame);
     document.getElementById('snake-renew').addEventListener('click', refreshGame);
 
-// Отслеживание клавиш клавиатуры
+    // Отслеживание клавиш клавиатуры
     addEventListener('keydown', changeDirection);
 }
 
@@ -62,9 +62,9 @@ function prepareGameField() {
 
     var scoreBox = document.createElement('span');  // Добавляем поле очков
     scoreBox.className = "score"
-    scoreBox.innerText = ("score: "+score);
+    scoreBox.innerText = ("score: " + score);
     document.querySelector(".wrap").appendChild(scoreBox);
-    
+
 }
 
 /**
@@ -94,7 +94,7 @@ function respawn() {
     var snake_head = document.getElementsByClassName('cell-' + start_coord_y + '-' + start_coord_x)[0];
     snake_head.setAttribute('class', snake_head.getAttribute('class') + ' snake-unit');
     // Тело змейки
-    var snake_tail = document.getElementsByClassName('cell-' + (start_coord_y-1) + '-' + start_coord_x)[0];
+    var snake_tail = document.getElementsByClassName('cell-' + (start_coord_y - 1) + '-' + start_coord_x)[0];
     snake_tail.setAttribute('class', snake_tail.getAttribute('class') + ' snake-unit');
 
     snake.push(snake_head);
@@ -107,26 +107,27 @@ function respawn() {
 function move() {
     //console.log('move',direction);
     // Сборка классов
-    var snake_head_classes = snake[snake.length-1].getAttribute('class').split(' ');
+    var snake_head_classes = snake[snake.length - 1].getAttribute('class').split(' ');
 
     // Сдвиг головы
     var new_unit;
     var snake_coords = snake_head_classes[1].split('-');//преобразовали строку в массив
     var coord_y = parseInt(snake_coords[1]);
     var coord_x = parseInt(snake_coords[2]);
+    var valid_x, valid_y;
 
     // Определяем новую точку
     if (direction == 'x-') {
-        new_unit = document.getElementsByClassName('cell-' + (coord_y) + '-' + (coord_x - 1))[0];
+        new_unit = document.getElementsByClassName('cell-' + (coord_y) + '-' + (valid_x = (coord_x - 1) < 0 ? FIELD_SIZE_X - 1 : coord_x - 1))[0];
     }
     else if (direction == 'x+') {
-        new_unit = document.getElementsByClassName('cell-' + (coord_y) + '-' + (coord_x + 1))[0];
+        new_unit = document.getElementsByClassName('cell-' + (coord_y) + '-' + (valid_x = (coord_x + 1) == FIELD_SIZE_X ? 0 : coord_x + 1))[0];
     }
     else if (direction == 'y+') {
-        new_unit = document.getElementsByClassName('cell-' + (coord_y - 1) + '-' + (coord_x))[0];
+        new_unit = document.getElementsByClassName('cell-' + (valid_y = (coord_y - 1) < 0 ? FIELD_SIZE_Y - 1 : coord_y - 1) + '-' + (coord_x))[0];
     }
     else if (direction == 'y-') {
-        new_unit = document.getElementsByClassName('cell-' + (coord_y + 1) + '-' + (coord_x))[0];
+        new_unit = document.getElementsByClassName('cell-' + (valid_y = (coord_y + 1) == FIELD_SIZE_Y ? 0 : coord_y + 1) + '-' + (coord_x))[0];
     }
 
     // Проверки
@@ -139,12 +140,12 @@ function move() {
         snake.push(new_unit);
 
         // Проверяем, надо ли убрать хвост
-       
-	   if (!haveFood(new_unit)) {
+
+        if (!haveFood(new_unit)) {
             // Находим хвост
             var removed = snake.splice(0, 1)[0];
             var classes = removed.getAttribute('class').split(' ');
-			
+
             // удаляем хвост
             removed.setAttribute('class', classes[0] + ' ' + classes[1]);
         }
@@ -183,7 +184,7 @@ function haveFood(unit) {
         createFood();
 
         score++;
-        document.querySelector('.score').textContent = ("score: "+score);
+        document.querySelector('.score').textContent = ("score: " + score);
     }
     return check;
 }
@@ -220,7 +221,7 @@ function createFood() {
         var food_cell_classes = food_cell.getAttribute('class').split(' ');
 
         // проверка на змейку
-        if (!food_cell_classes.includes('snake-unit') || !food_cell_classes.includes('rock-unit')){
+        if (!food_cell_classes.includes('snake-unit') || !food_cell_classes.includes('rock-unit')) {
             var classes = '';
             for (var i = 0; i < food_cell_classes.length; i++) {
                 classes += food_cell_classes[i] + ' ';
@@ -264,10 +265,10 @@ function createRock() {
 }
 
 function removeRock(unit) {
-    if(lastRock !== undefined) {
+    if (lastRock !== undefined) {
         var classes;
         var unit_classes = unit.getAttribute('class').split(' ');
-        for (var i = 0; i < unit_classes.length-1; i++) {
+        for (var i = 0; i < unit_classes.length - 1; i++) {
             classes += unit_classes[i] + ' ';
         }
         unit.setAttribute('class', classes);
@@ -280,7 +281,7 @@ function removeRock(unit) {
  */
 function changeDirection(e) {
     console.log(e);
-	switch (e.keyCode) {
+    switch (e.keyCode) {
         case 37: // Клавиша влево
             if (direction != 'x+') {
                 direction = 'x-'
