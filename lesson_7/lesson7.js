@@ -57,6 +57,12 @@ function prepareGameField() {
     }
 
     document.getElementById('snake-field').appendChild(game_table); // Добавление таблицы
+
+    var scoreBox = document.createElement('span');
+    scoreBox.className = "score"
+    scoreBox.innerText = ("score: "+score);
+    document.querySelector(".wrap").appendChild(scoreBox);
+    
 }
 
 /**
@@ -174,6 +180,7 @@ function haveFood(unit) {
         createFood();
 
         score++;
+        document.querySelector('.score').textContent = ("score: "+score);
     }
     return check;
 }
